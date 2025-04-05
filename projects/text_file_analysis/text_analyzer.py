@@ -1,7 +1,7 @@
 import sys
 
-from utils import read_file, parse_arguments
-from text_statistics import display_statistics
+from .utils import read_file, parse_arguments
+from .text_statistics import display_statistics
 
 
 def main() -> int:

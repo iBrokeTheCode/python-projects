@@ -1,5 +1,5 @@
 from collections import Counter
-from utils import clean_text
+from .utils import clean_text
 
 
 def calculate_words_count(text: str) -> int:
