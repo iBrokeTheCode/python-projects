@@ -40,7 +40,7 @@ def calculate_characters_count(text: str) -> int:
     return len(text)
 
 
-def calculate_words_frequency(text: str, number: int | None) -> dict:
+def calculate_words_frequency(text: str, number: int | None = None) -> dict:
     """Calculates the frequency of each word in the given text.
 
     Args:
