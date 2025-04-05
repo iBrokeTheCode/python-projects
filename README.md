@@ -66,6 +66,12 @@ poetry remove <package-name>
 poetry update
 
 # Create a virtual environment for the project
+# poetry shell (replaced with plugin)
+# https://python-poetry.org/docs/managing-environments/#bash-csh-zsh
+eval $(poetry env activate)
+
+# Add poetry shell plugin
+poetry self add poetry-plugin-shell
 poetry shell
 
 # Run a command within the virtual environment without activating it
