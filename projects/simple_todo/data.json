@@ -1,6 +1,10 @@
 [
     {
-        "title": "Eat lunch",
+        "title": "Learn Python",
+        "completed": true
+    },
+    {
+        "title": "Sleeping",
         "completed": true
     }
 ]

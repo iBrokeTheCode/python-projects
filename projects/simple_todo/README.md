@@ -29,7 +29,7 @@ This project involves creating a command-line application that allows users to c
 ## Example Usage
 
 ```shell
-python todo.py add "Buy groceries"
+python todo.py add "Buy groceries --completed"
 python todo.py list
 python todo.py complete 1
 python todo.py remove 2
