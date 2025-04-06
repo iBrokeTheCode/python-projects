@@ -6,7 +6,8 @@
 
 ## List of Projects
 
-1. [Text File Analyzer Tool](./projects/text_file_analysis/README.md)
+1. [Text File Analyzer Tool](./projects/text_analyzer/README.md)
+2. [Simple To Do App](./projects/simple_todo/README.md)
 
 ## Poetry
 

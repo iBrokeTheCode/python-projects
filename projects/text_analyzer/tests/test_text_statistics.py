@@ -1,5 +1,5 @@
 import pytest
-from projects.text_file_analysis.text_statistics import (
+from projects.text_analyzer.text_statistics import (
     calculate_words_count,
     calculate_characters_count,
     calculate_lines_count,
