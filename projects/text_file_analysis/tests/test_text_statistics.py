@@ -1,6 +1,11 @@
 import pytest
-from projects.text_file_analysis.text_statistics import calculate_words_count, calculate_characters_count, calculate_lines_count, calculate_words_frequency
-from projects.text_file_analysis.utils import clean_text
+from projects.text_file_analysis.text_statistics import (
+    calculate_words_count,
+    calculate_characters_count,
+    calculate_lines_count,
+    calculate_words_frequency,
+    clean_text
+)
 
 
 def test_calculate_characters_count():

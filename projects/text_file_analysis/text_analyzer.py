@@ -1,7 +1,6 @@
 import sys
 
-from .utils import read_file, parse_arguments
-from .text_statistics import display_statistics
+from text_statistics import display_statistics, read_file, parse_arguments
 
 
 def main() -> int:
@@ -31,6 +30,3 @@ def main() -> int:
 
 if __name__ == '__main__':
     sys.exit(main())
-
-# TODO: Add testing
-# TODO: Add colors
