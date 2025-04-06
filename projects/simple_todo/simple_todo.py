@@ -127,6 +127,11 @@ class ToDoApp:
             print(f"Failed to load tasks from json: {e}")
             return []
 
+    def clear_tasks(self) -> None:
+        """Clear all tasks from ToDoApp"""
+        self.__tasks = []
+        self.save_tasks_json()
+
 # ================================================================
 #                              MAIN
 # ================================================================

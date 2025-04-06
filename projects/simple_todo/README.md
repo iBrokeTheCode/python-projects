@@ -43,7 +43,3 @@ python todo.py remove 2
 - **Implement File Persistence:** Implement functions or methods to save and load the to-do list data.
 - **Implement Command-Line Arguments:** Use argparse to handle user input.
 - **Test and Refactor:** Test your code and refactor as needed.
-
-## Future Improvements
-
-- Add `Enums` to task status (Pending, Completed)
