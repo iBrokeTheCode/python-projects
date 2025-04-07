@@ -1,8 +1,12 @@
 from pathlib import Path
+import argparse
+import logging
 
-# TODO: Add argparse
-# TODO: Add logging
 # TODO: Add tests
+
+# ================================================================
+#                          FILE MANAGING
+# ================================================================
 
 
 def get_cwd() -> Path:
@@ -38,21 +42,22 @@ def get_file_info(file_path: Path) -> tuple[Path, str, str]:
     return parent, filename, extension
 
 
-def organize_files(path: str = '') -> None:
+def organize_files(path: Path, log: bool = False) -> None:
     """Organizes files in a directory based on their extensions.
 
     Args:
         path: The path to the directory to organize (default: current working directory).
     """
-    cwd = Path(path or get_cwd())
+    logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s - %(levelname)s - %(message)s')
 
     # Validations
-    if not cwd.exists():
-        print(f'Error: Directory "{cwd}" does not exist.')
+    if not path.exists():
+        logging.error(f'Error: Directory "{path}" does not exist.')
         return
 
-    if not cwd.is_dir():
-        print(f'Error: "{cwd}" is not an directory.')
+    if not path.is_dir():
+        logging.error(f'Error: "{path}" is not an directory.')
         return
 
     extension_mapping = {
@@ -61,11 +66,11 @@ def organize_files(path: str = '') -> None:
         'videos': ('mp4', 'mkv', 'm4a'),
     }
 
-    files = directory_traversal(cwd)
+    files = directory_traversal(path)
 
     # Create directories
     for folder_name in extension_mapping.keys():
-        Path(cwd / folder_name).mkdir(parents=True, exist_ok=True)
+        Path(path / folder_name).mkdir(parents=True, exist_ok=True)
 
     # Iterate list of files
     for file in files:
@@ -77,16 +82,36 @@ def organize_files(path: str = '') -> None:
                 new_path = parent / folder_name / filename
                 try:
                     file.rename(new_path)
-                    print(
-                        f'{filename} moved successfully to {new_path}')
+
+                    logging.info(
+                        f'{filename}" moved successfully to {new_path}')
                 except Exception as e:
-                    print(f'Error moving "{filename}": {e}')
+                    logging.error(f'Error moving "{filename}": {e}')
                 break
+
+# ================================================================
+#                             PARSER
+# ================================================================
+
+
+def parse_arguments() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description='Organize files in a directory')
+    parser.add_argument(dest='path', type=Path, help='Directory to organize')
+    parser.add_argument('--log', action='store_true',
+                        help='Enable logging')
+
+    return parser.parse_args()
+
+# ================================================================
+#                             MAIN
+# ================================================================
 
 
 def main() -> None:
-    test_path = '/home/alexrtc/Projects/mine/python-projects/projects/file_organizer/assets'
-    organize_files(test_path)
+    args = parse_arguments()
+
+    organize_files(args.path, args.log)
 
 
 if __name__ == '__main__':
