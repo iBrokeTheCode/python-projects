@@ -42,22 +42,49 @@ def get_file_info(file_path: Path) -> tuple[Path, str, str]:
     return parent, filename, extension
 
 
-def organize_files(path: Path, log: bool = False) -> None:
-    """Organizes files in a directory based on their extensions.
+def set_logger(log: bool) -> logging.Logger:
+    """Configures and returns a logger instance.
 
     Args:
-        path: The path to the directory to organize (default: current working directory).
+        log: If True, logs to a file; otherwise, logs to the console.
+
+    Returns:
+        A logging.Logger instance.
     """
-    logging.basicConfig(level=logging.INFO,
-                        format='%(asctime)s - %(levelname)s - %(message)s')
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+
+    formatter = logging.Formatter(
+        '%(asctime)s [%(levelname)s] - %(message)s', datefmt='%Y %b %d - %H:%M:%S')
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+
+    if log:
+        file_handler = logging.FileHandler('file_organizer.log')
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+    return logger
+
+
+def organize_files(path: Path, log: bool = False) -> None:
+    """Organizes files in a directory based on their extensions and logs the process.
+
+    Args:
+        directory: The path to the directory to organize.
+        log_to_file: If True, logs to a file; otherwise, logs to the console.
+    """
+    logger = set_logger(log)
 
     # Validations
     if not path.exists():
-        logging.error(f'Error: Directory "{path}" does not exist.')
+        logger.error(f'Error: Directory "{path}" does not exist.')
         return
 
     if not path.is_dir():
-        logging.error(f'Error: "{path}" is not an directory.')
+        logger.error(f'Error: "{path}" is not an directory.')
         return
 
     extension_mapping = {
@@ -83,10 +110,10 @@ def organize_files(path: Path, log: bool = False) -> None:
                 try:
                     file.rename(new_path)
 
-                    logging.info(
+                    logger.info(
                         f'{filename}" moved successfully to {new_path}')
                 except Exception as e:
-                    logging.error(f'Error moving "{filename}": {e}')
+                    logger.error(f'Error moving "{filename}": {e}')
                 break
 
 # ================================================================
