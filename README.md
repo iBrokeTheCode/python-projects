@@ -6,94 +6,112 @@
 
 ## List of Projects
 
+**Beginner Projects (1-30):**
+
 1. [Text File Analyzer Tool](./projects/text_analyzer)
 2. [Simple To Do App](./projects/simple_todo)
 3. [File Organizer](./projects/file_organizer)
 
-## Poetry
+- Simple Calculator
+- Unit Converter
+- Password Generator
+- Simple Quiz
+- Rock, Paper, Scissors Game
+- Number Guessing Game
+- Basic Text Editor CLI
+- Countdown Timer
+- Currency Converter CLI
+- Weather CLI
+- Simple Alarm Clock
+- Simple Mad Libs Game
+- CLI address book
+- CLI Expense tracker
+- CLI blog post creator
+- CLI hangman game
+- CLI dice roller
+- CLI file search tool
+- CLI website status checker
+- CLI simple encryption/decryption tool
+- CLI IP address locator
+- CLI system information tool
+- CLI CSV to JSON converter / JSON to CSV converter
+- CLI simple image resizer
+- CLI simple audio player
+- CLI simple video player
+- CLI simple PDF to text converter
 
-### Installation
+**Intermediate Projects (31-70):**
 
-- Install Poetry. Follow [doc instructions](https://python-poetry.org/docs/#installing-with-the-official-installer)
+- Simple Web Scraper
+- Basic Blog with SQLite Database
+- REST API Interaction Tool
+- Image Processing Script
+- Automated Email Sender
+- Basic Chat Application
+- Data Analysis with Pandas
+- Web Scraping with Selenium
+- Task Scheduler
+- Simple Game with Pygame
+- Basic File Backup Tool
+- Real-time Currency Converter GUI
+- Web Scraping with Beautiful Soup
+- Social Media Bot
+- Port Scanner
+- URL shortener
+- recipe book application using sqlite3.
+- stock price tracker.
+- web crawler.
+- QR code generator.
+- PDF merger.
+- simple machine learning application.
+- audio file converter.
+- video file converter.
+- file compression/decompression tool.
+- data visualization tool.
+- web application with Flask.
+- web application with FastAPI.
+- web application with Django.
+- discord bot.
+- telegram bot.
+- image recognition application.
+- speech to text application.
+- text to speech application.
+- file monitoring tool.
+- network speed test tool.
+- simple paint application.
+- simple drawing application.
+- simple barcode generator.
+- simple barcode scanner.
 
-```shell
-# Install
-curl -sSL https://install.python-poetry.org | python3 -
+**Advanced Projects (71-100):**
 
-# Add to PATH
-export PATH="$HOME/.local/bin:$PATH"
-
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
-
-# Verify installation
-poetry --version
-
-# Enable completions
-mkdir $ZSH_CUSTOM/plugins/poetry
-poetry completions zsh > $ZSH_CUSTOM/plugins/poetry/_poetry
-
-# Add to plugins
-plugins(
-	poetry
-	...
-	)
-```
-
-- If you want to create virtualenvs inside projects:
-
-```shell
-poetry config virtualenvs.in-project true
-```
-
-- Some Poetry's basics commands
-
-```shell
-# Initialize a new Poetry project (creates pyproject.toml)
-poetry init
-
-# Install all dependencies defined in pyproject.toml
-poetry install
-
-# Add a package to the project (default adds to main dependencies)
-poetry add <package-name>
-
-# Add a package as a development dependency (e.g., testing tools)
-poetry add <package-name> --dev
-
-# Remove a package from the project
-poetry remove <package-name>
-
-# Update all dependencies to their latest versions according to pyproject.toml
-poetry update
-
-# Create a virtual environment for the project
-# poetry shell (replaced with plugin)
-# https://python-poetry.org/docs/managing-environments/#bash-csh-zsh
-eval $(poetry env activate)
-
-# Add poetry shell plugin
-poetry self add poetry-plugin-shell
-poetry shell
-
-# Run a command within the virtual environment without activating it
-poetry run <command>
-
-# Show the status of installed dependencies
-poetry show
-
-# Display information about the project and its dependencies
-poetry show --tree
-
-# Display the dependency tree for the project
-poetry show --dev
-
-# Lock the dependencies (regenerate poetry.lock)
-poetry lock
-
-# Check if dependencies are up-to-date with their version constraints
-poetry check
-
-# Publish the project to a repository (e.g., PyPI)
-poetry publish --build
-```
+- Asynchronous Web Scraper
+- Advanced Web Application with Django REST Framework
+- Real-time Data Visualization Dashboard
+- Advanced Chatbot with NLP
+- Distributed Task Queue
+- Advanced Game with PyOpenGL
+- Advanced System Monitoring Tool
+- Custom Web Framework
+- Machine Learning Model Deployment API
+- Network Security Tool
+- Image Recognition System
+- Audio Processing Application
+- Video Editing Application
+- Data Pipeline with Apache Airflow
+- Web Automation with Playwright
+- GUI application with Reflex.
+- GUI application with Flet.
+- GUI application with Streamlit.
+- social media analysis tool.
+- log analysis tool.
+- personal finance tracking application.
+- e-commerce web application.
+- online learning platform.
+- collaborative document editor.
+- 3D modeling application.
+- game server.
+- home automation system.
+- scientific data analysis tool.
+- blockchain application.
+- quantum computing simulation.
