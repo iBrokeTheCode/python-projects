@@ -11,8 +11,8 @@
 1. [Text File Analyzer Tool](./projects/text_analyzer)
 2. [Simple To Do App](./projects/simple_todo)
 3. [File Organizer](./projects/file_organizer)
+4. [Simple Calculator](./projects/simple_calculator/)
 
-- Simple Calculator
 - Unit Converter
 - Password Generator
 - Simple Quiz
