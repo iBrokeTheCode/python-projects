@@ -2,16 +2,16 @@ from pathlib import Path
 import argparse
 import logging
 
-# TODO: Add tests
 
 # ================================================================
 #                          FILE MANAGING
 # ================================================================
 
 
-def get_cwd() -> Path:
+def get_cwd(path: str) -> Path:
     """Returns the current working directory as a Path object."""
-    return Path(__file__).parent
+    # return Path(__file__).parent
+    return Path(path).parent
 
 
 def directory_traversal(path: Path) -> list[Path]:

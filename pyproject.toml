@@ -5,7 +5,6 @@ description = "A collection of Python mini-projects"
 authors = [
     {name = "iBrokeTheCode",email = "alexrtc.dev@gmail.com"}
 ]
-license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
