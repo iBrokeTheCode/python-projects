@@ -20,10 +20,14 @@ A basic command-line calculator that performs fundamental arithmetic operations:
 ## Example Usage
 
 ```bash
-python calculator.py sum 7 28
-python calculator.py subtract 7 28
-python calculator.py product 7 28
-python calculator.py division 7 28
+python calculator.py sum 28 7
+python calculator.py subtract 28 7
+python calculator.py product 28 7
+python calculator.py division 28 7
+
+# Output
+[2025 Apr 08 - 09:16:23]
+(INFO): Result = 196
 ```
 
 ## Steps
