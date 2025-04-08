@@ -21,7 +21,7 @@ class Operation(Enum):
 # ================================================================
 
 
-def sum(a: int, b: int) -> int:
+def add(a: int, b: int) -> int:
     """Adds two integers."""
     return a + b
 
@@ -108,7 +108,7 @@ def main() -> None:
     op1, op2 = args.operands[0], args.operands[1]
 
     operations: Dict[Operation, Callable[[int, int], Union[int, float]]] = {
-        Operation.SUM: sum,
+        Operation.SUM: add,
         Operation.SUBTRACT: subtract,
         Operation.PRODUCT: product,
         Operation.DIVISION: division
