@@ -8,12 +8,19 @@
 
 **Beginner Projects (1-30):**
 
-1. [Text File Analyzer Tool](./projects/text_analyzer)
-2. [Simple To Do App](./projects/simple_todo)
-3. [File Organizer](./projects/file_organizer)
+1. [Text File Analyzer Tool](./projects/text_analyzer/)
+2. [Simple To Do App](./projects/simple_todo/)
+3. [File Organizer](./projects/file_organizer/)
 4. [Simple Calculator](./projects/simple_calculator/)
+5. [Unit Converter](./projects/unit_converter/)
 
-- Unit Converter
+## Helper
+
+```bash
+mkdir -p projects/<name>/tests
+touch projects/<name>/tests/{__init__,test_<name>}.py projects/<name>/{__init__.py,<name>.py,README.md}
+```
+
 - Password Generator
 - Simple Quiz
 - Rock, Paper, Scissors Game
