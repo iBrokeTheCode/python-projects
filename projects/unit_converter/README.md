@@ -21,11 +21,17 @@ A command-line tool to convert between various units of measurement. This projec
 ## Example Usage
 
 ```bash
-python unit_converter.py --from meters --to feet --value 10
-10 meters is equal to 32.8084 feet.
+py unit_converter.py --category length --from meters --to centimeters --value 1
+1.0 meters is equal to 100.0 centimeters
 
-python unit_converter.py --from celsius --to fahrenheit --value 25
-25 celsius is equal to 77.0 fahrenheit.
+py unit_converter.py --category weight --from kilograms --to grams --value 1
+1.0 kilograms is equal to 1000.0 grams
+
+py unit_converter.py --category temperature --from celsius --to fahrenheit --value 1
+1.0 celsius is equal to 33.8 fahrenheit
+
+py unit_converter.py --category temperature --from celsius --to meters --value 1
+Value Error: --to unit no supported
 ```
 
 ## Steps
