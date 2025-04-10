@@ -14,6 +14,7 @@
 4. [Simple Calculator](./projects/simple_calculator/)
 5. [Unit Converter](./projects/unit_converter/)
 6. [Password Generator](./projects/password_generator/)
+7. [Simple Quiz](./projects/simple_quiz/)
 
 ## Helper
 
@@ -22,7 +23,8 @@ mkdir -p projects/<name>/tests
 touch projects/<name>/tests/{__init__,test_<name>}.py projects/<name>/{__init__.py,<name>.py,README.md}
 ```
 
-- Simple Quiz
+## Pending Projects
+
 - Rock, Paper, Scissors Game
 - Number Guessing Game
 - Basic Text Editor CLI
