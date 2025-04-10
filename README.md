@@ -13,6 +13,7 @@
 3. [File Organizer](./projects/file_organizer/)
 4. [Simple Calculator](./projects/simple_calculator/)
 5. [Unit Converter](./projects/unit_converter/)
+6. [Password Generator](./projects/password_generator/)
 
 ## Helper
 
@@ -21,7 +22,6 @@ mkdir -p projects/<name>/tests
 touch projects/<name>/tests/{__init__,test_<name>}.py projects/<name>/{__init__.py,<name>.py,README.md}
 ```
 
-- Password Generator
 - Simple Quiz
 - Rock, Paper, Scissors Game
 - Number Guessing Game
