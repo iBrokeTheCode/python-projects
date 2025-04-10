@@ -6,7 +6,8 @@ A command-line tool to generate strong, random passwords with customizable lengt
 
 ## Concepts Covered
 
-- Random number generation (`random` module)
+- Cryptographically secure random number generation (`secrets` module)
+- Shuffle items (`random` module)
 - String manipulation
 - User input and command-line arguments (`argparse`)
 - Lists and string methods
@@ -15,6 +16,7 @@ A command-line tool to generate strong, random passwords with customizable lengt
 ## Potential Modules
 
 - `random`
+- `secrets`
 - `argparse`
 - `string` (for character sets)
 
@@ -22,10 +24,13 @@ A command-line tool to generate strong, random passwords with customizable lengt
 
 ```bash
 python password_generator.py --length 12 --uppercase --lowercase --digits --symbols
-# Example output: aB9$xYz!2pQ8
+# Your password: aB9$xYz!2pQ8
 
 python password_generator.py -l 16 -u -d
-# Example output: 7G2pX9aL3kF1vC5z
+# Your password: 7G2pX9aL3kF1vC5z
+
+python password_generator.py
+# Your password: on%lf5O$
 ```
 
 ## Steps
@@ -38,3 +43,11 @@ python password_generator.py -l 16 -u -d
   - Append the generated characters to the password string or list.
 - **Display Password:** Print the generated password to the console.
 - **Implement Error Handling:** Handle cases where the user provides invalid input (e.g., negative length).
+
+## Future Improvements
+
+- **GUI:** Create a graphical user interface (GUI) using Tkinter, PyQt, Flet etc.
+- **Password Saving:** Implement functionality to save generated passwords to a file or password manager.
+- **Password Strength Check:** Integrate a password strength checking library or algorithm to provide feedback on the generated password's strength.
+- **Clipboard Integration:** Add an option to copy the generated password to the clipboard.
+- **Password History:** Store and display recently generated passwords.
