@@ -1,7 +1,8 @@
+import argparse
 import json
 from pathlib import Path
-from typing import Any, List, Dict
 from random import shuffle
+from typing import Any
 
 # ================================================================
 #                             EXCEPTIONS
@@ -26,8 +27,6 @@ class InvalidJsonError(Exception):
 # ================================================================
 
 
-# TODO: Make tests
-# TODO: Apply colors / Create Class
 if __name__ == "__main__":
     RED = '\033[31m'
     GREEN = '\033[32m'
@@ -46,7 +45,7 @@ def get_cwd_path() -> Path:
     return Path(__file__).parent
 
 
-def read_quiz_data(filename: str) -> List[Dict[str, Any]]:
+def read_quiz_data(filename: str) -> list[dict[str, Any]]:
     """
     Reads quiz data from a JSON file.
 
@@ -68,7 +67,7 @@ def read_quiz_data(filename: str) -> List[Dict[str, Any]]:
         raise InvalidJsonError(f'Invalid JSON format in "{filename}"')
 
 
-def get_user_answer(options: List[str]) -> str | None:
+def get_user_answer(options: list[str]) -> str | None:
     """Gets and validates the user's answer."""
 
     user_answer_letter = input('Your answer: ').strip().lower()
@@ -80,15 +79,15 @@ def get_user_answer(options: List[str]) -> str | None:
             return user_answer
         except IndexError:
             print(
-                f'\033[31mLetter "{user_answer_letter}" is not a valid option\033[0m')
+                f'{RED}Letter "{user_answer_letter}" is not a valid option{RESET}')
             return None
     else:
         print(
-            f'\033[31mLetter "{user_answer_letter}" is not a valid option\033[0m')
+            f'{RED}Letter "{user_answer_letter}" is not a valid option{RESET}')
         return None
 
 
-def play_quiz(data: List[Dict[str, Any]]) -> None:
+def play_quiz(data: list[dict[str, Any]]) -> None:
     """Plays the quiz based on the provided data."""
 
     score = 0
@@ -100,8 +99,13 @@ def play_quiz(data: List[Dict[str, Any]]) -> None:
         options = item.get('options', [])
         shuffle(options)
 
+        # Validate fields from JSON
+        if not question or not answer or not options:
+            raise InvalidJsonError(
+                'Incorrect format in JSON file. The fields: question, answer and options are required')
+
         # Display options
-        print(f'\n\033[36mQuestion {index}: {question}\033[0m')
+        print(f'\n{CYAN}Question {index}: {question}{RESET}')
         for i, option in enumerate(options):
             print(f'{chr(97 + i)}) {option}')
 
@@ -110,15 +114,32 @@ def play_quiz(data: List[Dict[str, Any]]) -> None:
         if user_answer:
             # Print answer result
             if user_answer == answer:
-                print('\033[32mCorrect!\033[0m')
+                print(f'{GREEN}Correct!{RESET}')
                 score += 1
             else:
                 print(
-                    f'\033[31mIncorrect!\033[0m \033[32mThe correct answer is {answer}\033[0m')
+                    f'{RED}Incorrect!{RESET} {GREEN}The correct answer is {answer}{RESET}')
 
         # Print score
-        print(f'\033[33mYour score: {score}/{len(data)}\033[0m')
+        print(f'{YELLOW}Your score: {score}/{len(data)}{RESET}')
 
+# ================================================================
+#                              PARSER
+# ================================================================
+
+
+def parse_arguments() -> argparse.Namespace:
+    """Parses command-line arguments."""
+
+    parser = argparse.ArgumentParser(description='Play Quiz App')
+
+    parser.add_argument(
+        'quiz_data',
+        type=str,
+        help='a JSON file with quiz questions, answers and options'
+    )
+
+    return parser.parse_args()
 
 # ================================================================
 #                              MAIN
@@ -127,16 +148,20 @@ def play_quiz(data: List[Dict[str, Any]]) -> None:
 
 def main() -> None:
     """Main function to execute the quiz data reader."""
+
+    args = parse_arguments()
+    quiz_data = args.quiz_data
+
     try:
-        data = read_quiz_data('quiz_data.json')
+        data = read_quiz_data(quiz_data)
 
         if data:
             play_quiz(data)
 
     except QuizFileNotFoundError as e:
-        print(f'\033[31mError: {e}\033[0m')
+        print(f'{RED}Error: {e}{RESET}')
     except InvalidJsonError as e:
-        print(f'\033[31mError: {e}\033[0m')
+        print(f'{RED}Error: {e}{RESET}')
 
 
 if __name__ == '__main__':

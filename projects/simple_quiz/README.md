@@ -12,11 +12,26 @@ A command-line quiz application that presents users with multiple-choice questio
 - Conditional statements and loops
 - Randomization (`random` module)
 - `chr` and `ord` for unicode codes
+- Custom Exceptions
 
 ## Modules Used
 
 - `json` (for reading quiz questions from a file)
 - `random` (for shuffling questions and answer options)
+- `argparse` (for parsing arguments by terminal)
+
+## Example of JSON file
+
+```json
+[
+  {
+    "question": "What is the capital of France?",
+    "options": ["London", "Paris", "Berlin", "Rome"],
+    "answer": "Paris"
+  },
+  ...
+]
+```
 
 ## Example Usage
 
@@ -50,12 +65,6 @@ python simple_quiz.py quiz_data.json
 
 ## Future Improvements
 
-- **Different Question Types:** Add support for different question types (e.g., true/false, fill-in-the-blank).
-- **Difficulty Levels:** Implement difficulty levels to categorize questions.
 - **Timers:** Add timers to limit the time for each question.
 - **GUI:** Create a graphical user interface (GUI) using Tkinter, PyQt, Flet etc.
-- **User Profiles:** Implement user profiles to store scores and track progress.
-- **Question Categories:** Allow users to select question categories.
 - **Database Integration:** Store quiz data in a database instead of a JSON file.
-- **Online Quiz:** Implement an online quiz with user authentication and leaderboards.
-- **Logging:** Implement a logging system to track quiz attempts and potential errors.
