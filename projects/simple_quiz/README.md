@@ -11,6 +11,7 @@ A command-line quiz application that presents users with multiple-choice questio
 - User input and output
 - Conditional statements and loops
 - Randomization (`random` module)
+- `chr` and `ord` for unicode codes
 
 ## Modules Used
 
