@@ -27,22 +27,21 @@ class InvalidJsonError(Exception):
 # ================================================================
 
 
-if __name__ == "__main__":
-    RED = '\033[31m'
-    GREEN = '\033[32m'
-    YELLOW = '\033[33m'
-    CYAN = '\033[36m'
-    RESET = '\033[0m'
+RED = '\033[31m'
+GREEN = '\033[32m'
+YELLOW = '\033[33m'
+CYAN = '\033[36m'
+RESET = '\033[0m'
 
 
 # ================================================================
 #                           SIMPLE QUIZ
 # ================================================================
 
-def get_cwd_path() -> Path:
+def get_cwd_path(cwd: str) -> Path:
     """Returns the current working directory as a Path object."""
 
-    return Path(__file__).parent
+    return Path(cwd).parent
 
 
 def read_quiz_data(filename: str) -> list[dict[str, Any]]:
@@ -55,7 +54,7 @@ def read_quiz_data(filename: str) -> list[dict[str, Any]]:
     Returns:
         A list of dictionaries representing the quiz data, or None if the file is not found.
     """
-    file_path = get_cwd_path() / filename
+    file_path = get_cwd_path(__file__) / filename
 
     if not file_path.exists():
         raise QuizFileNotFoundError(f'File not found: "{filename}"')
@@ -97,7 +96,10 @@ def play_quiz(data: list[dict[str, Any]]) -> None:
         question = item.get('question', '')
         answer = item.get('answer', '')
         options = item.get('options', [])
-        shuffle(options)
+
+        # Shuffle options when running from THIS module (AVOID issues with tests)
+        if __name__ == '__main__':
+            shuffle(options)
 
         # Validate fields from JSON
         if not question or not answer or not options:
