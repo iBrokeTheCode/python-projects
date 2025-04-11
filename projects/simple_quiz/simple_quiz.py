@@ -5,10 +5,10 @@ from typing import Any, List, Dict
 
 
 # ================================================================
-#                             PARSER
+#                             EXCEPTIONS
 # ================================================================
 
-class FileNotFoundError(Exception):
+class QuizFileNotFoundError(Exception):
     """Exception raised when a file is not found."""
 
     def __init__(self, message):
@@ -21,6 +21,10 @@ class InvalidJsonError(Exception):
     def __init__(self, message) -> None:
         super().__init__(message)
 
+
+# ================================================================
+#                             UTILS
+# ================================================================
 
 def get_cwd_path() -> Path:
     """Returns the current working directory as a Path object."""
@@ -41,7 +45,7 @@ def read_quiz_data(filename: str) -> List[Dict[str, Any]]:
     file_path = get_cwd_path() / filename
 
     if not file_path.exists():
-        raise FileNotFoundError(f'File not found: "{filename}"')
+        raise QuizFileNotFoundError(f'File not found: "{filename}"')
 
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
@@ -61,7 +65,7 @@ def main() -> None:
 
         if data:
             pprint(data)
-    except FileNotFoundError as e:
+    except QuizFileNotFoundError as e:
         print(f'\033[31mError: {e}\033[0m')
     except InvalidJsonError as e:
         print(f'\033[31mError: {e}\033[0m')
