@@ -15,6 +15,7 @@
 5. [Unit Converter](./projects/unit_converter/)
 6. [Password Generator](./projects/password_generator/)
 7. [Simple Quiz](./projects/simple_quiz/)
+8. [Rock, Paper, Scissors Game](./projects/rock_paper_scissors/)
 
 ## Helper
 
@@ -25,7 +26,6 @@ touch projects/<name>/tests/{__init__,test_<name>}.py projects/<name>/{__init__.
 
 ## Pending Projects
 
-- Rock, Paper, Scissors Game
 - Number Guessing Game
 - Basic Text Editor CLI
 - Countdown Timer
