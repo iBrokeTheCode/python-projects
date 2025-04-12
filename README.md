@@ -16,6 +16,7 @@
 6. [Password Generator](./projects/password_generator/)
 7. [Simple Quiz](./projects/simple_quiz/)
 8. [Rock, Paper, Scissors Game](./projects/rock_paper_scissors/)
+9. [Number Guessing Game](./projects/number_guessing_game/)
 
 ## Helper
 
@@ -26,7 +27,6 @@ touch projects/<name>/tests/{__init__,test_<name>}.py projects/<name>/{__init__.
 
 ## Pending Projects
 
-- Number Guessing Game
 - Basic Text Editor CLI
 - Countdown Timer
 - Currency Converter CLI
