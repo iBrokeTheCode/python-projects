@@ -46,10 +46,10 @@ INVALID_INPUT_MESSAGE = Colors.style_message(
 class Player:
     """Represents a player in the Rock, Paper, Scissors game."""
 
-    def __init__(self, name: str, score: int = 0, choice: str = ''):
+    def __init__(self, name: str):
         self.name = name
-        self.score = score
-        self.choice = choice
+        self.score = 0
+        self.choice: str | None = None
 
 
 class RockPaperScissorsGame:
