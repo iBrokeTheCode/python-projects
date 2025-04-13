@@ -15,7 +15,6 @@ class Colors:
     @staticmethod
     def style_text(text: str, color: str) -> str:
         """Styles a message with the given color."""
-
         return f'{color}{text}{Colors.RESET}'
 
 
@@ -33,21 +32,22 @@ class NumberGuessingGame:
     ASK_NUMBER_MESSAGE = f'\nGuess a number between {RANDOM_MIN} and {RANDOM_MAX}: '
     OUT_OF_RANGE_MESSAGE = f'Your number must be between {RANDOM_MIN} and {RANDOM_MAX}'
     VALUE_ERROR_MESSAGE = 'Error: Enter a valid number value'
+    CORRECT_GUESS_MESSAGE = '\n> Congratulations! You guessed the number in {attempts} tries'
+    TOO_HIGH_MESSAGE = '> Too high!'
+    TOO_LOW_MESSAGE = '> Too low!'
+    PLAY_AGAIN_MESSAGE = '\nPlay again? (y/n): '
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initializes the Number Guessing Game."""
-
         self.random_number = self.generate_random_number()
         self.attempts = 0
 
     def generate_random_number(self) -> int:
         """Generates a random number within the specified range."""
-
         return randint(self.RANDOM_MIN, self.RANDOM_MAX)
 
     def get_user_number(self) -> int:
         """Prompts the user to enter a number and validates the input."""
-
         while True:
             try:
                 number = int(input(Colors.style_text(
@@ -64,18 +64,20 @@ class NumberGuessingGame:
                 print(Colors.style_text(f'Error: {e}', Colors.RED))
 
     def check_guess(self, user_number: int) -> bool:
+        """Checks the user's guess and provides feedback."""
         self.attempts += 1
 
         if user_number == self.random_number:
             print(Colors.style_text(
-                f'\n> Congratulations! You guessed the number in {self.attempts} tries', Colors.GREEN))
+                self.CORRECT_GUESS_MESSAGE.format(attempts=self.attempts), Colors.GREEN))
             return True
         else:
-            message = '> Too high!' if user_number > self.random_number else '> Too low!'
+            message = self.TOO_HIGH_MESSAGE if user_number > self.random_number else self.TOO_LOW_MESSAGE
             print(Colors.style_text(message, Colors.YELLOW))
             return False
 
     def reset_game(self) -> None:
+        """Resets the game for a new round."""
         self.random_number = self.generate_random_number()
         self.attempts = 0
 
@@ -86,13 +88,11 @@ class NumberGuessingGame:
             user_number = self.get_user_number()
 
             if self.check_guess(user_number):
-                keep_playing = input(
-                    '\nPlay again? (y/n): ').strip().lower()
+                keep_playing = input(self.PLAY_AGAIN_MESSAGE).strip().lower()
 
-                if keep_playing in ('yes', 'y'):
-                    self.reset_game()
-                else:
+                if keep_playing not in ('yes', 'y'):
                     break
+                self.reset_game()
 
 
 # ================================================================

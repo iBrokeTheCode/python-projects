@@ -21,11 +21,17 @@ A simple command-line number guessing game where the computer generates a random
 python number_guessing_game.py
 # Example output:
 # Guess a number between 1 and 100: 50
-# Too high!
-# Guess again: 25
-# Too low!
-# Guess again: 37
-# Congratulations! You guessed the number in 3 tries!
+# > Too high!
+
+# Guess a number between 1 and 100: 25
+# > Too low!
+
+# Guess a number between 1 and 100: 39
+
+# > Congratulations! You guessed the number in 7 tries
+
+# Play again? (y/n): y
+# ...
 ```
 
 ## Steps
@@ -44,9 +50,5 @@ python number_guessing_game.py
 
 - **Difficulty Levels:** Implement difficulty levels to change the range of the random number.
 - **Limited Attempts:** Limit the number of attempts the user can make.
-- **Score Tracking:** Keep track of the user's scores and display them.
 - **GUI:** Create a graphical user interface (GUI) using Tkinter, PyQt, Flet etc.
 - **Multiplayer Mode:** Implement a multiplayer mode where multiple users can guess the number.
-- **Hints:** Add hints to help the user guess the number.
-- **Online Leaderboard:** Implement an online leaderboard to track the user's scores.
-- **Logging:** Implement a logging system to track game attempts and potential errors.
