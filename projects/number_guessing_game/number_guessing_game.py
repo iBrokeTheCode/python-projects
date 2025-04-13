@@ -30,7 +30,7 @@ class NumberGuessingGame:
     RANDOM_MIN = 1
     RANDOM_MAX = 100
 
-    ASK_NUMBER_MESSAGE = f'Guess a number between {RANDOM_MIN} and {RANDOM_MAX}: '
+    ASK_NUMBER_MESSAGE = f'\nGuess a number between {RANDOM_MIN} and {RANDOM_MAX}: '
     OUT_OF_RANGE_MESSAGE = f'Your number must be between {RANDOM_MIN} and {RANDOM_MAX}'
     VALUE_ERROR_MESSAGE = 'Error: Enter a valid number value'
 
@@ -38,6 +38,7 @@ class NumberGuessingGame:
         """Initializes the Number Guessing Game."""
 
         self.random_number = self.generate_random_number()
+        self.attempts = 0
 
     def generate_random_number(self) -> int:
         """Generates a random number within the specified range."""
@@ -62,11 +63,36 @@ class NumberGuessingGame:
             except NumberOutOfRangeError as e:
                 print(Colors.style_text(f'Error: {e}', Colors.RED))
 
+    def check_guess(self, user_number: int) -> bool:
+        self.attempts += 1
+
+        if user_number == self.random_number:
+            print(Colors.style_text(
+                f'\n> Congratulations! You guessed the number in {self.attempts} tries', Colors.GREEN))
+            return True
+        else:
+            message = '> Too high!' if user_number > self.random_number else '> Too low!'
+            print(Colors.style_text(message, Colors.YELLOW))
+            return False
+
+    def reset_game(self) -> None:
+        self.random_number = self.generate_random_number()
+        self.attempts = 0
+
     def play(self) -> None:
         """Plays the Number Guessing Game."""
 
-        user_number = self.get_user_number()
-        print(Colors.style_text(f'User number is: {user_number}', Colors.CYAN))
+        while True:
+            user_number = self.get_user_number()
+
+            if self.check_guess(user_number):
+                keep_playing = input(
+                    '\nPlay again? (y/n): ').strip().lower()
+
+                if keep_playing in ('yes', 'y'):
+                    self.reset_game()
+                else:
+                    break
 
 
 # ================================================================
