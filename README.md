@@ -17,6 +17,7 @@
 7. [Simple Quiz](./projects/simple_quiz/)
 8. [Rock, Paper, Scissors Game](./projects/rock_paper_scissors/)
 9. [Number Guessing Game](./projects/number_guessing_game/)
+10. [Basic Text Editor CLI]()
 
 ## Helper
 
@@ -27,7 +28,6 @@ touch projects/<name>/tests/{__init__,test_<name>}.py projects/<name>/{__init__.
 
 ## Pending Projects
 
-- Basic Text Editor CLI
 - Countdown Timer
 - Currency Converter CLI
 - Weather CLI
