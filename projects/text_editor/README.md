@@ -19,20 +19,45 @@ This project involves creating a simple command-line interface (CLI) text editor
 ## Example Usage
 
 ```bash
-python text_editor.py my_file.txt
-# (Opens my_file.txt for editing)
+❯ python text_editor.py my_file.txt
 
-# Inside the editor:
-# > read
-# (Displays the contents of my_file.txt)
-# > write This is some new text.
-# (Overwrites the content of my_file.txt)
-# > append\nThis is added to the end.
-# (Appends text to the end of my_file.txt)
-# > save
-# (Saves the changes to my_file.txt)
-# > exit
-# (Closes the editor)
+"my_file.txt" file opened for editing
+
+❯ read
+Wasted Love
+
+❯ append Bara Bada Bastu
+Done!
+
+❯ read
+*Changes not saved
+
+Wasted Love
+Bara Bada Bastu
+
+❯ save
+Done!
+
+❯ read
+Wasted Love
+Bara Bada Bastu
+
+❯ write Wasted Love
+Done!
+
+❯ read
+*Changes not saved
+
+Wasted Love
+
+❯ save
+Done!
+
+❯ read
+Wasted Love
+
+❯ exit
+Done. Bye!
 ```
 
 ## Steps
@@ -63,7 +88,6 @@ python text_editor.py my_file.txt
 - **Line Numbers:** Display line numbers.
 - **Syntax Highlighting:** Add syntax highlighting for different file types.
 - **GUI:** Create a graphical user interface (GUI).
-- **Advanced Command Parsing:** Use a library like argparse to handle more complex command-line arguments.
 - **File Locking:** Implement file locking to prevent concurrent modification.
 - **Buffering:** Implement efficient buffering for large files.
 - **Status Bar:** Display a status bar with file information.
