@@ -13,8 +13,8 @@ This project involves creating a simple command-line interface (CLI) text editor
 
 ## Potential Modules
 
-- `os` (for file path manipulation, checking file existence)
-- `sys` (for accessing command-line arguments)
+- `pathlib` (for file path manipulation, checking file existence)
+- `argparse` (for accessing command-line arguments)
 
 ## Example Usage
 
