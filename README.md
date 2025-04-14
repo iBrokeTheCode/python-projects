@@ -17,7 +17,7 @@
 7. [Simple Quiz](./projects/simple_quiz/)
 8. [Rock, Paper, Scissors Game](./projects/rock_paper_scissors/)
 9. [Number Guessing Game](./projects/number_guessing_game/)
-10. [Basic Text Editor CLI]()
+10. [Basic Text Editor CLI](./projects/text_editor/)
 
 ## Helper
 
