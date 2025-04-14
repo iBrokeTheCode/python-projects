@@ -67,7 +67,7 @@ def save_file(file_path: pathlib.Path, content: str) -> None:
     try:
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(content)
-        print(Colors.style_text('File saved successfully', Colors.GREEN))
+        print(Colors.style_text('Done!', Colors.GREEN))
     except IOError as e:
         print(Colors.style_text(f'Error saving file: {e}', Colors.RED))
 
@@ -109,18 +109,26 @@ def main() -> None:
             return
 
     file_content = read_file(file_path)
+    saved = False
 
     while True:
         command = get_user_command()
 
         if command == 'read':
+            if not saved:
+                print(Colors.style_text('Changed not saved', Colors.YELLOW))
             print(file_content)
         elif command.startswith('write '):
             file_content = process_write_command(command)
+            print(Colors.style_text('Done!', Colors.GREEN))
+            saved = False
         elif command.startswith('append '):
             file_content = process_append_command(command, file_content)
+            print(Colors.style_text('Done!', Colors.GREEN))
+            saved = False
         elif command == 'save':
             save_file(file_path, file_content)
+            saved = True
         elif command == 'exit':
             print('Text Editor closed')
             return
