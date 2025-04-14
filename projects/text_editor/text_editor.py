@@ -37,7 +37,7 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 # ================================================================
-#                           TEXT EDITOR
+#                              UTILS
 # ================================================================
 
 
@@ -46,45 +46,105 @@ def get_file_path(filename: str) -> pathlib.Path:
     parent = pathlib.Path(__file__).parent
     return parent / filename
 
-
-def check_existing_file(file_path: pathlib.Path) -> bool:
-    """Checks if the file exists."""
-    return file_path.exists()
-
-
-def read_file(file_path: pathlib.Path) -> str:
-    """Reads the contents of the file."""
-    try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            return file.read()
-    except IOError as e:
-        print(Colors.style_text(f'Error reading file: {e}', Colors.RED))
-        return ''
+# ================================================================
+#                           TEXT EDITOR
+# ================================================================
 
 
-def save_file(file_path: pathlib.Path, content: str) -> None:
-    """Saves the file content to the file."""
-    try:
-        with open(file_path, 'w', encoding='utf-8') as file:
-            file.write(content)
-        print(Colors.style_text('Done!', Colors.GREEN))
-    except IOError as e:
-        print(Colors.style_text(f'Error saving file: {e}', Colors.RED))
+class TextEditor:
+    """Represents a basic text editor."""
 
+    def __init__(self, filename: pathlib.Path):
+        """Initializes a TextEditor object."""
+        self.filename = filename
+        self.is_saved = True
+        self.file_content = ''
 
-def get_user_command() -> str:
-    """Gets the user's command input."""
-    return input(Colors.style_text('\n❯ ', Colors.YELLOW)).strip()
+    def check_existing_file(self) -> bool:
+        """Checks if the file exists."""
+        return self.filename.exists()
 
+    def get_user_command(self) -> str:
+        """Gets the user's command input."""
+        return input(Colors.style_text('\n❯ ', Colors.YELLOW)).strip()
 
-def process_write_command(command: str) -> str:
-    """Processes the write command."""
-    return command[6:]
+    def open_file(self) -> None:
+        """Opens or creates the file for editing."""
+        if self.check_existing_file():
+            print(Colors.style_text(
+                f'\n"{self.filename.name}" file opened for editing', Colors.CYAN))
+        else:
+            try:
+                pathlib.Path.touch(self.filename, exist_ok=True)
+                print(Colors.style_text(
+                    f'"{self.filename}" file created for editing', Colors.CYAN))
+            except OSError as e:
+                print(Colors.style_text(
+                    f'Error creating file: {e}', Colors.RED))
+                exit()
 
+        self.file_content = self.read_file()
 
-def process_append_command(command: str, file_content: str) -> str:
-    """Processes the append command."""
-    return file_content + f'\n{command[7:]}'
+    def read_file(self) -> str:
+        """Reads the contents of the file."""
+        try:
+            with open(self.filename, 'r', encoding='utf-8') as file:
+                return file.read()
+        except IOError as e:
+            print(Colors.style_text(f'Error reading file: {e}', Colors.RED))
+            return ''
+
+    def display_file_content(self) -> None:
+        """Displays the file content."""
+        if not self.is_saved:
+            print(Colors.style_text(
+                '*Changes not saved\n', Colors.YELLOW))
+        print(Colors.style_text(self.file_content, Colors.CYAN))
+
+    def process_write_command(self, command: str) -> None:
+        """Processes the write command."""
+        self.file_content = command[6:]
+        self.is_saved = False
+
+    def process_append_command(self, command: str) -> None:
+        """Processes the append command."""
+        self.file_content += f'\n{command[7:]}'
+        self.is_saved = False
+
+    def save_file(self) -> None:
+        """Saves the file content to the file."""
+        try:
+            with open(self.filename, 'w', encoding='utf-8') as file:
+                file.write(self.file_content)
+            print(Colors.style_text('Done!', Colors.GREEN))
+            self.is_saved = True
+        except IOError as e:
+            print(Colors.style_text(f'Error saving file: {e}', Colors.RED))
+
+    def edit_file(self) -> None:
+        """Starts the text editor and manages the command loop."""
+        self.open_file()
+
+        while True:
+            command = self.get_user_command()
+
+            if command == 'read':
+                self.display_file_content()
+            elif command.startswith('write '):
+                self.process_write_command(command)
+                print(Colors.style_text('Done!', Colors.GREEN))
+            elif command.startswith('append '):
+                self.process_append_command(command)
+                print(Colors.style_text('Done!', Colors.GREEN))
+            elif command == 'save':
+                self.save_file()
+            elif command == 'exit':
+                print(Colors.style_text('Done. Bye!', Colors.GREEN))
+                return
+            else:
+                print(Colors.style_text(
+                    'Invalid command. Available commands (read, write <text>, append <text>, save, exit)', Colors.RED))
+
 
 # ================================================================
 #                              MAIN
@@ -96,45 +156,8 @@ def main() -> None:
     args = parse_arguments()
     file_path = get_file_path(args.filename)
 
-    if check_existing_file(file_path):
-        print(Colors.style_text(
-            f'\n"{args.filename}" file opened for editing', Colors.CYAN))
-    else:
-        try:
-            pathlib.Path.touch(file_path, exist_ok=True)
-            print(Colors.style_text(
-                f'"{args.filename}" file created for editing', Colors.CYAN))
-        except OSError as e:
-            print(Colors.style_text(f'Error creating file: {e}', Colors.RED))
-            return
-
-    file_content = read_file(file_path)
-    saved = False
-
-    while True:
-        command = get_user_command()
-
-        if command == 'read':
-            if not saved:
-                print(Colors.style_text('Changed not saved', Colors.YELLOW))
-            print(file_content)
-        elif command.startswith('write '):
-            file_content = process_write_command(command)
-            print(Colors.style_text('Done!', Colors.GREEN))
-            saved = False
-        elif command.startswith('append '):
-            file_content = process_append_command(command, file_content)
-            print(Colors.style_text('Done!', Colors.GREEN))
-            saved = False
-        elif command == 'save':
-            save_file(file_path, file_content)
-            saved = True
-        elif command == 'exit':
-            print('Text Editor closed')
-            return
-        else:
-            print(Colors.style_text(
-                'Invalid command. Available commands (read, write <text>, append <text>, save, exit)', Colors.RED))
+    text_editor = TextEditor(file_path)
+    text_editor.edit_file()
 
 
 if __name__ == '__main__':
