@@ -80,41 +80,55 @@ def parse_arguments() -> argparse.Namespace:
 # ================================================================
 
 
-def get_total_seconds(hours: int, minutes: int, seconds: int) -> int:
-    """Calculate total seconds from hours, minutes, and seconds."""
-    total_seconds = 0
-    if seconds:
-        total_seconds += seconds
-    if minutes:
-        total_seconds += minutes * 60
-    if hours:
-        total_seconds += hours * 3600
+class CountdownTimer:
+    """A class that implements a countdown timer."""
 
-    return total_seconds
+    def __init__(self, hours: int, minutes: int, seconds: int) -> None:
+        """Initializes the CountdownTimer with hours, minutes, and seconds."""
+        self.hours = hours or 0
+        self.minutes = minutes or 0
+        self.seconds = seconds or 0
+        self.total_seconds = self.get_total_seconds()
 
+    def get_total_seconds(self) -> int:
+        """Calculate total seconds from hours, minutes, and seconds."""
+        total_seconds = 0
+        if self.seconds:
+            total_seconds += self.seconds
+        if self.minutes:
+            total_seconds += self.minutes * 60
+        if self.hours:
+            total_seconds += self.hours * 3600
 
-def format_time(total_seconds: int) -> str:
-    hours = total_seconds // 3600  # Calc hours
-    # Calc remaining seconds and convert to minutes
-    minutes = (total_seconds % 3600) // 60
-    seconds = total_seconds % 60  # Calc remaining seconds
+        return total_seconds
 
-    return f'{hours:02d}:{minutes:02d}:{seconds:02d}'
+    def format_time(self, total_seconds: int) -> str:
+        """Formats the remaining seconds into HH:MM:SS."""
+        hours = total_seconds // 3600
+        minutes = (total_seconds % 3600) // 60
+        seconds = total_seconds % 60
 
+        return f'{hours:02d}:{minutes:02d}:{seconds:02d}'
 
-def run_timer(total_seconds: int):
-    if total_seconds == 0:
-        print(Colors.style_text(
-            'Please specify a valid countdown duration', Colors.YELLOW))
-        return
+    def run_timer(self):
+        """Runs the countdown timer."""
+        if self.total_seconds == 0:
+            print(Colors.style_text(
+                'Please specify a valid countdown duration', Colors.YELLOW))
+            return
 
-    print(Colors.style_text('\nStarting countdown...\n', Colors.GREEN))
+        print(Colors.style_text('\nStarting countdown...\n', Colors.GREEN))
 
-    for i in range(total_seconds, 0, -1):
-        print(Colors.style_text(f'> {format_time(i)}', Colors.CYAN))
-        time.sleep(1)
+        try:
+            for i in range(self.total_seconds, 0, -1):
+                print(Colors.style_text(
+                    f'> {self.format_time(i)}', Colors.CYAN))
+                time.sleep(1)
 
-    print(Colors.style_text("\nTime's up", Colors.RED))
+            print(Colors.style_text("\nTime's up", Colors.YELLOW))
+        except KeyboardInterrupt:
+            print(Colors.style_text("\nCountdown interrupted.", Colors.RED))
+
 
 # ================================================================
 #                              MAIN
@@ -124,8 +138,9 @@ def run_timer(total_seconds: int):
 def main() -> None:
     """Main function to run the countdown timer app."""
     args = parse_arguments()
-    total_seconds = get_total_seconds(args.hours, args.minutes, args.seconds)
-    run_timer(total_seconds)
+
+    timer = CountdownTimer(args.hours, args.minutes, args.seconds)
+    timer.run_timer()
 
 
 if __name__ == '__main__':

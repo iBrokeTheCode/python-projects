@@ -18,9 +18,10 @@ This project involves creating a command-line that counts down from a specified 
 ## Example Usage (Command-Line)
 
 ```bash
-python countdown_timer.py -t 60  # Countdown for 60 seconds
-python countdown_timer.py -m 5   # Countdown for 5 minutes
-python countdown_timer.py -h 1   # Countdown for 1 hour
+python countdown_timer.py -H 1 -m 15 -s 30 # 01:15:30
+python countdown_timer.py -H 1 # 01:00:00
+python countdown_timer.py -m 15 # 00:15:00
+python countdown_timer.py -s 30 # 00:00:30
 ```
 
 ## Steps
