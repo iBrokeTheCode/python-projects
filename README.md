@@ -18,17 +18,17 @@
 8. [Rock, Paper, Scissors Game](./projects/rock_paper_scissors/)
 9. [Number Guessing Game](./projects/number_guessing_game/)
 10. [Basic Text Editor CLI](./projects/text_editor/)
+11. [Countdown Timer](./projects/countdown_timer/)
 
 ## Helper
 
 ```bash
-mkdir -p projects/<name>/tests
-touch projects/<name>/tests/{__init__,test_<name>}.py projects/<name>/{__init__.py,<name>.py,README.md}
+mkdir -p projects/countdown_timer/tests
+touch projects/countdown_timer/tests/{__init__,test_countdown_timer}.py projects/countdown_timer/{__init__.py,countdown_timer.py,README.md}
 ```
 
 ## Pending Projects
 
-- Countdown Timer
 - Currency Converter CLI
 - Weather CLI
 - Simple Alarm Clock
