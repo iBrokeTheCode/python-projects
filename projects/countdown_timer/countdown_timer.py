@@ -102,7 +102,8 @@ class CountdownTimer:
 
         return total_seconds
 
-    def format_time(self, total_seconds: int) -> str:
+    @staticmethod
+    def format_time(total_seconds: int) -> str:
         """Formats the remaining seconds into HH:MM:SS."""
         hours = total_seconds // 3600
         minutes = (total_seconds % 3600) // 60
@@ -122,7 +123,7 @@ class CountdownTimer:
         try:
             for i in range(self.total_seconds, 0, -1):
                 print(Colors.style_text(
-                    f'> {self.format_time(i)}', Colors.CYAN))
+                    f'> {CountdownTimer.format_time(i)}', Colors.CYAN))
                 time.sleep(1)
 
             print(Colors.style_text("\nTime's up", Colors.YELLOW))
