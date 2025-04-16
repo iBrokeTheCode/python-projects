@@ -1,5 +1,7 @@
 import argparse
 import requests
+import json
+from pathlib import Path
 
 # ================================================================
 #                             COLORS
@@ -25,11 +27,28 @@ class Colors:
 
 
 def get_supported_currencies() -> str:
-    return ''
+    """Fetches the list of supported currencies from a local JSON file."""
+    json_path = Path(__file__).parent / 'supported_currencies.json'
+
+    try:
+        with open(json_path) as file:
+            content: dict = json.load(file)
+
+        formatted_content = []
+        for key, value in content.items():
+            formatted_content.append(f'{value} ({key})')
+        return ' | '.join(formatted_content)
+    except:
+        return f'Error getting supported currency info. Visit https://api.frankfurter.dev/v1/currencies'
 
 
 def parse_arguments() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description='Currency Converter')
+    """Parse command-line arguments."""
+    supported_currencies = get_supported_currencies()
+    parser = argparse.ArgumentParser(
+        description=f'Supported Currencies: {supported_currencies}',
+        epilog='Credits to https://frankfurter.dev',
+        usage='python currency_converter.py -f USD -t EUR 100')
 
     parser.add_argument(
         '--from', '-f',
@@ -63,8 +82,8 @@ def parse_arguments() -> argparse.Namespace:
 class CurrencyConverter:
     """A class to handle currency conversion using the Frankfurter API."""
 
-    __CONVERSION_URL = 'https://api.frankfurter.dev/v1/latest?base={from_currency}&symbols={to_currency}'
-    __SUPPORTED_CURRENCIES_URL = 'https://api.frankfurter.dev/v1/currencies'
+    CONVERSION_URL = 'https://api.frankfurter.dev/v1/latest?base={from_currency}&symbols={to_currency}'
+    SUPPORTED_CURRENCIES_URL = 'https://api.frankfurter.dev/v1/currencies'
 
     def __init__(self) -> None:
         """Initializes the CurrencyConverter."""
@@ -73,7 +92,7 @@ class CurrencyConverter:
     def __fetch_supported_currencies(self) -> dict:
         """Fetches the list of supported currencies from the API."""
         try:
-            response = requests.get(self.__SUPPORTED_CURRENCIES_URL)
+            response = requests.get(self.SUPPORTED_CURRENCIES_URL)
             response.raise_for_status()
             return response.json()
         except requests.RequestException as e:
@@ -98,7 +117,7 @@ class CurrencyConverter:
 
         try:
             response = requests.get(
-                CurrencyConverter.__CONVERSION_URL.format(
+                CurrencyConverter.CONVERSION_URL.format(
                     from_currency=from_currency, to_currency=to_currency)
             )
             response.raise_for_status()
@@ -115,8 +134,11 @@ class CurrencyConverter:
 
     def __get_conversion(self, exchange_data: dict | None, amount: float) -> float | None:
         """Calculates the converted amount based on the exchange rate data."""
+        if not exchange_data:
+            return
+
         # exchange_data: {'amount': 1.0, 'base': 'USD', 'date': '2025-04-15', 'rates': {'EUR': 0.88308}}
-        if exchange_data and 'rates' in exchange_data:
+        if 'rates' in exchange_data:
             rates = exchange_data.get('rates')  # {'EUR': 0.88308}
 
             if not rates:
@@ -126,7 +148,7 @@ class CurrencyConverter:
 
             exchange_rate = list(rates.values())[0]
             return amount * exchange_rate
-        elif exchange_data and 'message' in exchange_data:
+        elif 'message' in exchange_data:
             print(Colors.style_text(
                 f'API Error: {exchange_data.get('message', 'Not Found')}', Colors.RED))
             return None
@@ -136,6 +158,7 @@ class CurrencyConverter:
             return None
 
     def convert_currency(self, from_currency: str, to_currency: str, amount: float):
+        """Converts the given amount from one currency to another."""
         exchange_data = self.__fetch_exchange_rate(from_currency, to_currency)
         converted_amount = self.__get_conversion(exchange_data, amount)
 
@@ -149,6 +172,7 @@ class CurrencyConverter:
 
 
 def main() -> None:
+    """Main function to handle command-line arguments and perform currency conversion."""
     args = parse_arguments()
     from_currency = args.from_currency
     to_currency = args.to_currency

@@ -22,7 +22,10 @@ This project involves creating a command-line application that allows users to c
 
 ```bash
 python currency_converter.py --from USD --to EUR --amount 100
-python currency_converter.py -f GBP -t JPY -a 50.75
+python currency_converter.py -f USD -t EUR -a 50.75
+
+# Output
+# 100.00 USD is equivalent to 88.31 EUR
 ```
 
 ## Steps
@@ -42,28 +45,28 @@ python currency_converter.py -f GBP -t JPY -a 50.75
   - `--to` or `-t`: The target currency code (e.g., EUR, JPY, CAD).
   - `--amount` or `-a`: The amount to convert (a floating-point number).
 
-- [ ] **Fetching Exchange Rates:**
+- [x] **Fetching Exchange Rates:**
 
   - Construct the appropriate URL to make a request to the chosen API based on the source and target currencies.
   - Use the `requests` library to send an HTTP GET request to the API endpoint.
   - Handle potential network errors (e.g., `requests.exceptions.RequestException`).
 
-- [ ] **Parsing JSON Response:**
+- [x] **Parsing JSON Response:**
 
   - If the API request is successful, the response will likely be in JSON format.
   - Use the `json` library to parse the JSON data.
   - Examine the structure of the JSON response to find the exchange rate for the specified currency pair.
 
-- [ ] **Performing the Conversion:**
+- [x] **Performing the Conversion:**
 
   - Extract the exchange rate from the parsed JSON data.
   - Multiply the input amount by the exchange rate to get the converted amount.
 
-- [ ] **Displaying the Result:**
+- [x] **Displaying the Result:**
 
   Print the converted amount in a user-friendly format, including the original amount, source currency, target currency, and the converted amount.
 
-- [ ] **Error Handling:**
+- [x] **Error Handling:**
 
 Implement error handling for various scenarios, such as:
 
