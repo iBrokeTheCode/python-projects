@@ -19,17 +19,17 @@
 9. [Number Guessing Game](./projects/number_guessing_game/)
 10. [Basic Text Editor CLI](./projects/text_editor/)
 11. [Countdown Timer](./projects/countdown_timer/)
+12. [Currency Converter CLI](./projects/currency_converter/)
 
 ## Helper
 
 ```bash
-mkdir -p projects/countdown_timer/tests
-touch projects/countdown_timer/tests/{__init__,test_countdown_timer}.py projects/countdown_timer/{__init__.py,countdown_timer.py,README.md}
+mkdir -p projects/currency_converter/tests
+touch projects/currency_converter/tests/{__init__,test_currency_converter}.py projects/currency_converter/{__init__.py,currency_converter.py,README.md}
 ```
 
 ## Pending Projects
 
-- Currency Converter CLI
 - Weather CLI
 - Simple Alarm Clock
 - Simple Mad Libs Game
