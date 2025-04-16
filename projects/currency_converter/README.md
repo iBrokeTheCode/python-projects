@@ -28,39 +28,40 @@ python currency_converter.py -f GBP -t JPY -a 50.75
 ## Steps
 
 - [x] **Choose an Exchange Rate API:**
-- Select an Exchange Rate API. In this case: [Frankfurter](https://frankfurter.dev/)
-- Sign up for an API key if required.
-- Familiarize yourself with the API documentation, especially the endpoints for fetching exchange rates.
-- Understand how to specify the base currency and the target currency.
+
+  - Select an Exchange Rate API. In this case: [Frankfurter](https://frankfurter.dev/)
+  - Sign up for an API key if required.
+  - Familiarize yourself with the API documentation, especially the endpoints for fetching exchange rates.
+  - Understand how to specify the base currency and the target currency.
 
 - [ ] **Argument Parsing:**
 
-Use argparse to handle the following command-line arguments:
+  Use argparse to handle the following command-line arguments:
 
-- `--from` or `-f`: The source currency code (e.g., USD, EUR, GBP).
-- `--to` or `-t`: The target currency code (e.g., EUR, JPY, CAD).
-- `--amount` or `-a`: The amount to convert (a floating-point number).
+  - `--from` or `-f`: The source currency code (e.g., USD, EUR, GBP).
+  - `--to` or `-t`: The target currency code (e.g., EUR, JPY, CAD).
+  - `--amount` or `-a`: The amount to convert (a floating-point number).
 
 - [ ] **Fetching Exchange Rates:**
 
-- Construct the appropriate URL to make a request to the chosen API based on the source and target currencies.
-- Use the `requests` library to send an HTTP GET request to the API endpoint.
-- Handle potential network errors (e.g., `requests.exceptions.RequestException`).
+  - Construct the appropriate URL to make a request to the chosen API based on the source and target currencies.
+  - Use the `requests` library to send an HTTP GET request to the API endpoint.
+  - Handle potential network errors (e.g., `requests.exceptions.RequestException`).
 
 - [ ] **Parsing JSON Response:**
 
-- If the API request is successful, the response will likely be in JSON format.
-- Use the `json` library to parse the JSON data.
-- Examine the structure of the JSON response to find the exchange rate for the specified currency pair.
+  - If the API request is successful, the response will likely be in JSON format.
+  - Use the `json` library to parse the JSON data.
+  - Examine the structure of the JSON response to find the exchange rate for the specified currency pair.
 
 - [ ] **Performing the Conversion:**
 
-- Extract the exchange rate from the parsed JSON data.
-- Multiply the input amount by the exchange rate to get the converted amount.
+  - Extract the exchange rate from the parsed JSON data.
+  - Multiply the input amount by the exchange rate to get the converted amount.
 
 - [ ] **Displaying the Result:**
 
-Print the converted amount in a user-friendly format, including the original amount, source currency, target currency, and the converted amount.
+  Print the converted amount in a user-friendly format, including the original amount, source currency, target currency, and the converted amount.
 
 - [ ] **Error Handling:**
 
