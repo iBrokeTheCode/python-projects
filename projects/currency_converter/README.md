@@ -77,8 +77,6 @@ Implement error handling for various scenarios, such as:
 
 ## Future Improvements
 
-- **Support for More APIs:** Allow users to choose from different exchange rate APIs.
 - **Caching of Exchange Rates:** Implement caching to reduce the number of API calls for frequently used currency pairs.
 - **More Detailed Output:** Include the date and time of the exchange rate.
 - **Interactive Mode:** Allow users to enter conversions without specifying all arguments on the command line.
-- **Configuration Options:** Allow users to configure default currencies or API keys.

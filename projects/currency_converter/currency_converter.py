@@ -26,9 +26,9 @@ class Colors:
 # ================================================================
 
 
-def get_supported_currencies() -> str:
+def get_supported_currencies(data_filename: str) -> str:
     """Fetches the list of supported currencies from a local JSON file."""
-    json_path = Path(__file__).parent / 'supported_currencies.json'
+    json_path = Path(__file__).parent / data_filename
 
     try:
         with open(json_path) as file:
@@ -42,9 +42,23 @@ def get_supported_currencies() -> str:
         return f'Error getting supported currency info. Visit https://api.frankfurter.dev/v1/currencies'
 
 
+def validate_positive_amount(amount: str) -> float:
+    """Validates that the amount is positive."""
+    if not amount.isdigit():
+        raise argparse.ArgumentTypeError(f'"{amount}" is not a valid number')
+
+    number = float(amount)
+
+    if number <= 0:
+        raise argparse.ArgumentTypeError(
+            f'"{amount}" must be greater than zero')
+    return number
+
+
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
-    supported_currencies = get_supported_currencies()
+    supported_currencies = get_supported_currencies(
+        'supported_currencies.json')
     parser = argparse.ArgumentParser(
         description=f'Supported Currencies: {supported_currencies}',
         epilog='Credits to https://frankfurter.dev',
@@ -67,7 +81,7 @@ def parse_arguments() -> argparse.Namespace:
 
     parser.add_argument(
         '--amount', '-a',
-        type=float,
+        type=validate_positive_amount,
         required=True,
         help='amount to convert'
     )
@@ -157,7 +171,7 @@ class CurrencyConverter:
                 'Error: Could not retrieve exchange rate', Colors.RED))
             return None
 
-    def convert_currency(self, from_currency: str, to_currency: str, amount: float):
+    def convert_currency(self, from_currency: str, to_currency: str, amount: float) -> None:
         """Converts the given amount from one currency to another."""
         exchange_data = self.__fetch_exchange_rate(from_currency, to_currency)
         converted_amount = self.__get_conversion(exchange_data, amount)
