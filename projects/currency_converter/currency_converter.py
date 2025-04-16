@@ -10,12 +10,14 @@ def parse_arguments() -> argparse.Namespace:
 
     parser.add_argument(
         '--from', '-f',
+        dest='from_currency',
         type=str,
         required=True,
         help='currency to convert from')
 
     parser.add_argument(
         '--to', '-t',
+        dest='to_currency',
         type=str,
         required=True,
         help='currency to convert to'
@@ -37,8 +39,16 @@ def parse_arguments() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_arguments()
-    print(args)
+    from_currency = args.from_currency
+    to_currency = args.to_currency
+    amount = args.amount
 
 
 if __name__ == '__main__':
     main()
+
+# Supported currencies:
+# https://api.frankfurter.dev/v1/currencies
+
+# Currency conversion
+# https://api.frankfurter.dev/v1/latest?base=${from}&symbols=${to}

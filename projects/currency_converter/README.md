@@ -34,7 +34,7 @@ python currency_converter.py -f GBP -t JPY -a 50.75
   - Familiarize yourself with the API documentation, especially the endpoints for fetching exchange rates.
   - Understand how to specify the base currency and the target currency.
 
-- [ ] **Argument Parsing:**
+- [x] **Argument Parsing:**
 
   Use argparse to handle the following command-line arguments:
 
