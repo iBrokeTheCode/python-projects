@@ -20,17 +20,17 @@
 10. [Basic Text Editor CLI](./projects/text_editor/)
 11. [Countdown Timer](./projects/countdown_timer/)
 12. [Currency Converter CLI](./projects/currency_converter/)
+13. [Lyrics CLI](./projects/lyrics_cli/)
 
 ## Helper
 
 ```bash
-mkdir -p projects/currency_converter/tests
-touch projects/currency_converter/tests/{__init__,test_currency_converter}.py projects/currency_converter/{__init__.py,currency_converter.py,README.md}
+mkdir -p projects/lyrics_cli/tests
+touch projects/lyrics_cli/tests/{__init__,test_lyrics_cli}.py projects/lyrics_cli/{__init__.py,lyrics_cli.py,README.md}
 ```
 
 ## Pending Projects
 
-- Weather CLI
 - Simple Alarm Clock
 - Simple Mad Libs Game
 - CLI address book
