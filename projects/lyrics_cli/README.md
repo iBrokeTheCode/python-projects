@@ -34,34 +34,34 @@ python lyrics_cli.py -a "The Beatles" -t "Hey Jude"
 
 ## Steps
 
-**Argument Parsing:**
+- [x] **Argument Parsing:**
 
 Use `argparse` to handle the following command-line arguments:
 
 - `--artist` or `-a`: The name of the artist (a string, required).
 - `--title` or `-t`: The title of the song (a string, required).
 
-**Constructing the API Request URL:**
+- [ ] **Constructing the API Request URL:**
 
 Take the artist and title provided by the user and build the appropriate URL for the Lyrics.ovh API. Remember to handle potential spaces or special characters in the artist and title (URL encoding might be necessary, though this API seems to handle spaces reasonably well).
 
-**Fetching Lyrics Data:**
+- [ ] **Fetching Lyrics Data:**
 
 - Use the `requests` library to send an HTTP GET request to the constructed API URL.
 - Handle potential network errors (e.g., `requests.exceptions.RequestException`).
 
-**Parsing the API Response:**
+- [ ] **Parsing the API Response:**
 
 - If the request is successful (status code 200), the response will likely be in JSON format.
 - Use the `json` library to parse the JSON data.
 - Check if the response contains the lyrics key. If it does, extract and display the lyrics.
 - If the response contains an `error` key (e.g., "No lyrics found"), display an appropriate message to the user.
 
-**Displaying the Lyrics:**
+- [ ] **Displaying the Lyrics:**
 
 Print the retrieved lyrics to the console.
 
-**Error Handling:**
+- [ ] **Error Handling:**
 
 Implement error handling for scenarios such as:
 
