@@ -90,7 +90,7 @@ class LyricsApp:
                 f'Error fetching lyrics: {e}', Colors.RED))
             return None
 
-    def display_lyrics(self, artist: str, title: str, lyrics: str) -> None:
+    def __display_lyrics(self, artist: str, title: str, lyrics: str) -> None:
         """
         Displays the lyrics to the console with artist and title.
 
@@ -118,7 +118,7 @@ class LyricsApp:
 
         if response and 'lyrics' in response:
             lyrics = response['lyrics']
-            self.display_lyrics(artist, title, lyrics)
+            self.__display_lyrics(artist, title, lyrics)
         elif response and 'error' in response:
             print(Colors.style_text(response.get(
                 'error', 'No lyrics found'), Colors.RED))
