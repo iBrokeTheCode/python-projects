@@ -21,17 +21,17 @@
 11. [Countdown Timer](./projects/countdown_timer/)
 12. [Currency Converter CLI](./projects/currency_converter/)
 13. [Lyrics CLI](./projects/lyrics_cli/)
+14. [Simple Alarm Clock](./projects/alarm_clock/)
 
 ## Helper
 
 ```bash
-mkdir -p projects/lyrics_cli/tests
-touch projects/lyrics_cli/tests/{__init__,test_lyrics_cli}.py projects/lyrics_cli/{__init__.py,lyrics_cli.py,README.md}
+mkdir -p projects/alarm_clock/tests
+touch projects/alarm_clock/tests/{__init__,test_alarm_clock}.py projects/alarm_clock/{__init__.py,alarm_clock.py,README.md}
 ```
 
 ## Pending Projects
 
-- Simple Alarm Clock
 - Simple Mad Libs Game
 - CLI address book
 - CLI Expense tracker
