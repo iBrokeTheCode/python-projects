@@ -44,8 +44,12 @@ def mock_lyrics_not_found(self, artist, title):
 
 def test_get_lyrics_success(capsys, monkeypatch):
     """Tests the get_lyrics method when lyrics are successfully fetched."""
-    monkeypatch.setattr(LyricsApp, "_LyricsApp__fetch_lyrics",
-                        mock_successful_lyrics_fetch)
+    # monkeypatch.setattr(LyricsApp, "_LyricsApp__fetch_lyrics", mock_successful_lyrics_fetch)
+    monkeypatch.setattr(
+        LyricsApp,
+        "_LyricsApp__fetch_lyrics",
+        lambda self, artist, title: {"lyrics": "This is the song's lyrics."})
+
     app = LyricsApp()
     app.get_lyrics("Nemo", "The Code")
     captured = capsys.readouterr()
@@ -57,6 +61,7 @@ def test_get_lyrics_not_found(capsys, monkeypatch):
     """Tests the get_lyrics method when no lyrics are found."""
     monkeypatch.setattr(
         LyricsApp, "_LyricsApp__fetch_lyrics", mock_lyrics_not_found)
+    #  monkeypatch.setattr(LyricsApp, "fetch_lyrics_public", mock_public_lyrics_fetch) # For Public methods
     app = LyricsApp()
     app.get_lyrics("JJ", "Wasted Love")
     captured = capsys.readouterr()
