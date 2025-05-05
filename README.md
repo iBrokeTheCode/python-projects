@@ -26,4 +26,4 @@
 
 **Django REST Framework Projects**
 
-1. [First]()
+1. [Book API](./projects/django-drf/book_api/)
