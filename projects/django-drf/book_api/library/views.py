@@ -1,5 +1,7 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 
+from library.filters import BookFilter
 from library.models import Book
 from library.serializers import BookSerializer
 
@@ -7,6 +9,8 @@ from library.serializers import BookSerializer
 class BookListCreateView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = BookFilter
 
 
 class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
