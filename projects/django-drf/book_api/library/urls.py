@@ -5,6 +5,10 @@ from library import views
 app_name = "library"
 
 urlpatterns = [
-    path("books/", views.BookListCreateView.as_view(), name="book-list"),
-    path("books/<int:pk>/", views.BookDetailView.as_view(), name="book-detail"),
+    path("books/", views.BookListCreateAPIView.as_view(), name="books-lc"),
+    path(
+        "books/<int:pk>/",
+        views.BookRetrieveUpdateDestroyAPIView.as_view(),
+        name="books-rud",
+    ),
 ]
