@@ -57,4 +57,6 @@ class AuthenticationTest(TestCase):
             path=self.endpoint_list_create, data=data, content_type="application/json"
         )
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        # self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN) # Without simple-jwt
+        # With simple-jwt
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

@@ -6,36 +6,41 @@ This project is a hands-on exercise to build a RESTful API for managing a collec
 
 - **Django:** A high-level Python web framework.
 - **Django REST Framework (DRF):** A powerful and flexible toolkit for building Web APIs.
-- **PostgreSQL:** As the database (though Django's default SQLite is sufficient for initial practice).
+- **(Potentially) PostgreSQL:** As the database (though Django's default SQLite is sufficient for initial practice).
 - **drf-spectacular:** For API documentation.
 - **django-filter:** For API filtering.
-- **djangorestframework-simplejwt:** For JWT authentic
+- **djangorestframework-simplejwt:** For JWT authentication.
 - **Testing:** Using DRF's testing tools.
 
 ## Project Features (Currently Implemented)
 
 - **CRUD Operations for Books:**
-  - **Create:** Add new book records to the database (POST to `/api/books/`).
-  - **Read (List):** Retrieve a list of all books (GET to `/api/books/`).
-  - **Read (Detail):** Retrieve details of a specific book by its ID (GET to `/api/books/<id>/`).
-  - **Update:** Modify existing book records (PUT/PATCH to `/api/books/<id>/`).
-  - **Delete:** Remove book records from the database (DELETE to `/api/books/<id>/`).
+  - **Create:** Add new book records (POST to `/api/v1/books/` - requires authentication).
+  - **Read (List):** Retrieve a list of all books (GET to `/api/v1/books/`). Supports pagination and filtering.
+  - **Read (Detail):** Retrieve details of a specific book by its ID (GET to `/api/v1/books/<id>/`).
+  - **Update:** Modify existing book records (PUT/PATCH to `/api/v1/books/<id>/` - requires authentication).
+  - **Delete:** Remove book records (DELETE to `/api/v1/books/<id>/` - requires authentication).
 - **Browsable API:** Django REST Framework's interactive web interface for easy API exploration and testing.
 - **Custom Management Command:** `populate_books` command to add initial sample book data to the database (`python manage.py populate_books`).
+- **Filtering:** Ability to filter books by `title`, `author`, `publication_year`, `publication_date` (greater than/less than), `isbn`, and presence of `publication_date`.
+- **Pagination:** Results for the book list are paginated (default page size: 10, configurable via `?page=<number>` and optionally `?size=<number>`).
+- **Search:** Ability to search books by keywords in `title` and `summary` using the `?search=<term>` query parameter.
+- **Permissions:** Only authenticated users can create, update, and delete books. Read operations are allowed for everyone.
+- **JWT Authentication:** Secure API access using JSON Web Tokens.
 
-## Future Features (Planned)
+## API Endpoints
 
-- **Filtering:** Allow filtering of books based on criteria like author, publication year, etc.
-- **Pagination:** Implement pagination for the book list to handle large datasets.
-- **Ordering:** Enable sorting of books based on different fields.
-- **Search:** Add a search functionality for books.
-- **Permissions:** Control access to API endpoints based on user roles or authentication status.
-- **Book Reviews:** Implement a system for users to add and view reviews for books.
-- **User Authentication:** Secure the API with user authentication.
-- **API Documentation:** Generate automatic API documentation using `drf-spectacular`.
-- **Testing:** Write unit and integration tests for the API.
-- **Containerization:** Use Docker for easier setup and deployment.
-- **Dependency Management:** Use Poetry for managing project dependencies.
+- `/api/v1/books/`:
+  - `GET`: List all books (supports filtering, search, and pagination).
+  - `POST`: Create a new book (requires a valid JWT token in the `Authorization` header).
+- `/api/v1/books/<id>/`:
+  - `GET`: Retrieve details of a specific book.
+  - `PUT`, `PATCH`: Update a specific book (requires a valid JWT token).
+  - `DELETE`: Delete a specific book (requires a valid JWT token).
+- `/api/token/`:
+  - `POST`: Obtain a new access and refresh token by providing valid username and password in the request body (JSON format: `{"username": "your_username", "password": "your_password"}`).
+- `/api/token/refresh/`:
+  - `POST`: Obtain a new access token using a valid refresh token in the request body (JSON format: `{"refresh": "your_refresh_token"}`).
 
 ## Setup Instructions
 
@@ -57,8 +62,7 @@ This project is a hands-on exercise to build a RESTful API for managing a collec
 3.  **Install dependencies:**
 
     ```bash
-    pip install django djangorestframework
-    # (Install other dependencies as we add features, e.g., django-filter, drf-spectacular)
+    pip install django djangorestframework django-filter djangorestframework-simplejwt
     ```
 
 4.  **Apply migrations:**
@@ -67,24 +71,46 @@ This project is a hands-on exercise to build a RESTful API for managing a collec
     python manage.py migrate
     ```
 
-5.  **Create a superuser (for Django Admin):**
+5.  **Create a superuser (for Django Admin and initial API testing):**
 
     ```bash
     python manage.py createsuperuser
     ```
 
 6.  **Run the development server:**
-
     ```bash
     python manage.py runserver
     ```
 
-7.  **Access the API:** Open your browser or a tool like `curl` to interact with the API endpoints (e.g., `http://127.0.0.1:8000/api/books/`).
+## Interacting with the API
 
-## Custom Management Command
+### Obtaining JWT Tokens
 
-To populate the database with initial book data, run:
+1.  Use a tool like `curl`, Postman, or Insomnia.
+2.  Send a `POST` request to `http://127.0.0.1:8000/api/token/` with the following JSON body:
+    ```json
+    {
+      "username": "your_username",
+      "password": "your_password"
+    }
+    ```
+    (Replace `your_username` and `your_password` with the credentials of a user you created).
+3.  The response will contain `access` and `refresh` tokens.
+
+### Making Authenticated Requests
+
+1.  For requests that require authentication (creating, updating, deleting books), you need to include the `access` token in the `Authorization` header of your HTTP request.
+2.  The header should be in the format: `Authorization: Bearer <your_access_token>` (replace `<your_access_token>` with the actual token you obtained).
+
+**Example using `curl` to create a book (requires authentication):**
 
 ```bash
-python manage.py populate_books
+curl -X POST \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflflzJ6zF1iVYGzGT4-9q1j9-zJ7z-zJ7z-zJ7z-zJ7z' \
+  -d '{
+    "title": "New Book Title",
+    "author": "New Author"
+  }' \
+  [http://127.0.0.1:8000/api/v1/books/](http://127.0.0.1:8000/api/v1/books/)
 ```
