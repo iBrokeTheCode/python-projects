@@ -1,6 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from library.filters import BookFilter
 from library.models import Book
@@ -36,6 +37,7 @@ class BookListCreateView(generics.ListCreateAPIView):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = BookFilter
     pagination_class = BookListPNPagination
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
