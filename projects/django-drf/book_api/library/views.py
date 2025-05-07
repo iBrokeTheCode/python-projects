@@ -31,7 +31,8 @@ class BookListLOPagination(LimitOffsetPagination):
 # ================================================================
 
 
-class BookListCreateView(generics.ListCreateAPIView):
+class BookListCreateAPIView(generics.ListCreateAPIView):
+    # order_by("pk") # Avoid warning for pagination with unordered list
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     filter_backends = (DjangoFilterBackend,)
@@ -40,6 +41,6 @@ class BookListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
+class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
