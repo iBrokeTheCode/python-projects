@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics
+from rest_framework import filters, generics
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
@@ -39,10 +39,20 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
     # order_by("pk") # Avoid warning for pagination with unordered list
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    filter_backends = (DjangoFilterBackend,)
+
+    filter_backends = (
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    )
     filterset_class = BookFilter
+    search_fields = ("title", "=author")
+    ordering_fields = ("title", "author")
+
     pagination_class = BookListPNPagination
+
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
     # throttle_classes = [UserRateThrottle, AnonRateThrottle]
     # throttle_classes = (CustomRateThrottle,)
     throttle_scope = "books"

@@ -143,9 +143,9 @@ REST_FRAMEWORK = {
         "library.throttling.CustomRateThrottle",
     ],
     "DEFAULT_THROTTLE_RATES": {
-        "books": "7/minutes",
-        "anon": "3/minutes",
-        "user": "10/minutes",
-        "custom": "5/minutes",
+        "books": "70/minutes",
+        "anon": "30/minutes",
+        "user": "100/minutes",
+        "custom": "50/minutes",
     },
 }
