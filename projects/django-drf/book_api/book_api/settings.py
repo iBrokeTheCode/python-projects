@@ -137,11 +137,13 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
     ],
     "DEFAULT_THROTTLE_CLASSES": [
-        "rest_framework.throttling.UserRateThrottle",
+        "rest_framework.throttling.ScopedRateThrottle",
         "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
         "library.throttling.CustomRateThrottle",
     ],
     "DEFAULT_THROTTLE_RATES": {
+        "books": "7/minutes",
         "anon": "3/minutes",
         "user": "10/minutes",
         "custom": "5/minutes",

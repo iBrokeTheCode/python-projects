@@ -8,7 +8,7 @@ from library.models import Book
 from library.serializers import BookSerializer
 
 # from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
-from library.throttling import CustomRateThrottle
+# from library.throttling import CustomRateThrottle
 
 # ================================================================
 #                          PAGINATION
@@ -43,8 +43,9 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
     filterset_class = BookFilter
     pagination_class = BookListPNPagination
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    throttle_classes = (CustomRateThrottle,)
     # throttle_classes = [UserRateThrottle, AnonRateThrottle]
+    # throttle_classes = (CustomRateThrottle,)
+    throttle_scope = "books"
 
 
 class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
