@@ -2,11 +2,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 from library.filters import BookFilter
 from library.models import Book
 from library.serializers import BookSerializer
+
+# from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from library.throttling import CustomRateThrottle
 
 # ================================================================
 #                          PAGINATION
@@ -40,8 +42,9 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = BookFilter
     pagination_class = BookListPNPagination
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    throttle_classes = [UserRateThrottle, AnonRateThrottle]
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    throttle_classes = (CustomRateThrottle,)
+    # throttle_classes = [UserRateThrottle, AnonRateThrottle]
 
 
 class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
